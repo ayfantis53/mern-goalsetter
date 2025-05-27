@@ -1,0 +1,35 @@
+services:
+  api:
+    # BACKEND CONTAINER
+    image: ayfantis53/mern-goalsetter-server
+    build: 
+      dockerfile: Dockerfile.dev
+      context: ./server
+    volumes:
+      - /app/node_modules
+      - ./server:/app
+    ports:
+      - '5000:5000'
+  client:
+    # FRONTEND CONTAINER
+    image: ayfantis53/mern-goalsetter-client
+    build: 
+      dockerfile: Dockerfile.dev
+      context: ./client
+    volumes:
+      - /app/node_modules
+      - ./client:/app
+    environment:
+      - WDS_SOCKET_PORT=0
+  nginx:
+    # REVERSE PROXY ROUTING CONTAINER
+    depends_on:
+      - api
+      - client
+    restart: always
+    image: ayfantis53/mern-goalsetter-nginx
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./nginx
+    ports:
+      - '3050:80'

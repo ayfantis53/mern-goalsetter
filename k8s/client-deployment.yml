@@ -1,0 +1,40 @@
+# REACT FRONTEND DEPLOYMENT
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      component: web
+  template:
+    metadata:
+      labels:
+        component: web
+    spec:
+      containers:
+        - name: client
+          image: ayfantis53/mern-goalsetter-client
+          ports:
+            - containerPort: 3000
+          env:
+            - name: GENERATE_SOURCEMAP
+              value: 'false'
+            - name: DANGEROUSLY_DISABLE_HOST_CHECK
+              value: 'true'
+
+---
+
+# SERVICE FOR POD COMMUNCATION
+apiVersion: v1
+kind: Service
+metadata:
+  name: client-cluster-ip-service
+spec:
+  type: ClusterIP
+  selector:
+    component: web
+  ports:
+    - port: 3000
+      targetPort: 3000

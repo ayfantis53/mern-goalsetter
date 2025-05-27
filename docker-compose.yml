@@ -1,0 +1,21 @@
+services:
+  client:
+    # FRONTEND CONTAINER
+    image: 'ayfantis53/mern-goalsetter-client'
+    mem_limit: 256m
+    hostname: client
+  server:
+    # BACKEND CONTAINER
+    image: 'ayfantis53/mern-goalsetter-server'
+    mem_limit: 128m
+    hostname: api
+    environment:
+      - ATLAS_URI=$ATLAS_URI
+      - PORT=$PORT
+  nginx:
+    # REVERSE PROXY ROUTING CONTAINER
+    image: 'ayfantis53/mern-goalsetter-nginx'
+    mem_limit: 128m
+    hostname: nginx
+    ports:
+      - "80:80"
