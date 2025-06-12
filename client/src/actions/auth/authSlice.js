@@ -5,7 +5,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import authService from './authService';
 
 
-// Get user from local storage
+// Get user from local storage.
 const user = JSON.parse(localStorage.getItem('user'));
 
 const initialState = {
@@ -15,7 +15,7 @@ const initialState = {
     message:   ''
 };
 
-// register user calling authservice register user api call
+// register user calling authservice register user api call.
 export const register = createAsyncThunk('auth/register', async(user, thunkAPI) => {
     try {
         return await authService.register(user);
@@ -25,7 +25,7 @@ export const register = createAsyncThunk('auth/register', async(user, thunkAPI) 
     }
 });
 
-// login user calling authservice login user api call
+// login user calling authservice login user api call.
 export const login = createAsyncThunk('auth/login', async(user, thunkAPI) => {
     try {
         return await authService.login(user);
@@ -35,12 +35,12 @@ export const login = createAsyncThunk('auth/login', async(user, thunkAPI) => {
     }
 });
 
-// logout user calling authservice logout user api call
+// logout user calling authservice logout user api call.
 export const logout = createAsyncThunk('auth/logout', async(user, thunkAPI) => {
     return await authService.logout(user);
 });
 
-// State Management
+// State Management.
 export const authSlice = createSlice({
     name: 'auth',
     initialState,
@@ -88,6 +88,6 @@ export const authSlice = createSlice({
     },
 });
 
-// export functions to be visible to other files
+// export functions to be visible to other files.
 export const { reset } = authSlice.actions;
 export default authSlice.reducer;

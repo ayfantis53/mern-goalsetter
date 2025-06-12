@@ -7,15 +7,15 @@ import { render, screen } from '@testing-library/react';
 // project imports
 import App from '../App';
 import { store } from '../app/store';
-import { Dashboard, Login, Register } from '../pages/__index.js';
+import { Login, Register } from '../pages/__index.js';
 
 
-/* --------------------------------------------------------------------------------------
-* UNIT TESTS FOR APP.JS
--------------------------------------------------------------------------------------- */ 
+/** ----------------------------------------------------------------------------------------
+ *  Validate App rendering
+ * ---------------------------------------------------------------------------------------- */ 
 describe('|--------------------- App.test.js ---------------------|',()=>{
   test('renders default page', () => {
-    const { getByText } = render(
+    render(
       <Provider store={store}>
         <App />
       </Provider>
@@ -25,6 +25,7 @@ describe('|--------------------- App.test.js ---------------------|',()=>{
   
   test('renders login page', () => {
     const pathname = '/login';
+
     const { getByTestId} = render(
       <Provider store={store}>
         <BrowserRouter>
@@ -32,11 +33,13 @@ describe('|--------------------- App.test.js ---------------------|',()=>{
         </BrowserRouter>
       </Provider>
     );
+
     expect(getByTestId('login-display')).toHaveTextContent('Please Enter your Credentials');
   });
   
   test('renders register page', () => {
     const pathname = '/register';
+
     const { getByTestId} = render(
       <Provider store={store}>
         <BrowserRouter>
@@ -44,6 +47,7 @@ describe('|--------------------- App.test.js ---------------------|',()=>{
         </BrowserRouter>
       </Provider>
     );
+    
     expect(getByTestId('register-display')).toHaveTextContent('Please create an Account');
   });
   

@@ -1,8 +1,8 @@
 // npm installs
-import { Provider }      from 'react-redux';
+import { Provider      } from 'react-redux';
 import { BrowserRouter } from 'react-router';
 import userEvent         from '@testing-library/user-event';
-import { act, render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 
 // project imports
 import { store    } from '../../app/store.js';
@@ -17,11 +17,13 @@ describe('|--------------------- register-form.test.js render ------------------
     // -- Hook to render page before each test.
     beforeEach(async () => {
         // render page.
-        render(<Provider store={store}>
+        render(
+            <Provider store={store}>
                 <BrowserRouter>
                     <Register />
                 </BrowserRouter>
-               </Provider>);
+            </Provider>
+        );
 
         /** provide an empty implementation for window.alert. */
         // remember the jsdom alert.

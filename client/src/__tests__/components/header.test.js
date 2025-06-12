@@ -16,12 +16,14 @@ describe('|--------------------- header.test.js ---------------------|', () => {
 
   // -- Hook to render Header before each test.
   beforeEach(() => {
-      render(<Provider store={store}>
-              <BrowserRouter>
-                  <Header />
-              </BrowserRouter>
-            </Provider>);
-  });
+      render(
+        <Provider store={store}>
+          <BrowserRouter>
+              <Header />
+          </BrowserRouter>
+        </Provider>
+      );
+});
 
   // -- Validate "GoalSetter" title exists on web page.
   test('renders GoalSetter title', () => {
@@ -47,11 +49,13 @@ describe('|--------------------- header.test.js links ---------------------|', (
 
     // -- Hook to render Header before each test.
     beforeEach(() => {
-        render(<Provider store={store}>
-                <BrowserRouter>
-                    <Header />
-                </BrowserRouter>
-              </Provider>);
+        render(
+        <Provider store={store}>
+          <BrowserRouter>
+              <Header />
+          </BrowserRouter>
+        </Provider>
+      );
     });
 
     // -- Validate "GoalSetter" link works.

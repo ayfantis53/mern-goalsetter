@@ -33,6 +33,7 @@ export default function GoalForm() {
         <section className="form">
             {/* FORM TO SUBMIT A NEW GOAL */}
             <form onSubmit={onSubmit} data-testid='goal-form'>
+                {/** GOAL INPUT */}
                 <div className="form-group">
                     <label htmlFor="goal" className='form-label'> Goal </label>
                     <input type="text" id="goal" value={text} onChange={ (e)=>setText(e.target.value) } />

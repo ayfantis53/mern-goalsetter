@@ -1,9 +1,10 @@
 // npm imports
-import { useState, useEffect }      from 'react';
+import { useState, useEffect      } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { FaUser }                   from 'react-icons/fa';
-import { toast }                    from 'react-toastify';
-import { useNavigate }              from 'react-router';
+import { useNavigate              } from 'react-router';
+import { FaUser                   } from 'react-icons/fa';
+import { toast                    } from 'react-toastify';
+
 
 // project imports
 import { Spinner } from '../components/__index.js';
@@ -69,9 +70,7 @@ export default function Register() {
     <div data-testid='register-display'>
     {/* HEADING OF THE PAGE */}
       <section className='heading'>
-          <h1>
-              <FaUser /> Register  
-          </h1>
+          <h1> <FaUser /> Register </h1>
           <p> Please create an Account </p>
       </section>
     {/* REGISTER FORM */}

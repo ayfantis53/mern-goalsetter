@@ -16,11 +16,13 @@ describe('|--------------------- register-form.test.js render ------------------
     // -- Hook to render page before each test.
     beforeEach(async () => {
         // render page.
-        render(<Provider store={store}>
+        render(
+            <Provider store={store}>
                 <BrowserRouter>
                     <Dashboard />
                 </BrowserRouter>
-               </Provider>);
+                </Provider>
+            );
     });
 
     // -- Validate page renders correctly.

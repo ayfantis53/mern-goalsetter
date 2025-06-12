@@ -1,8 +1,8 @@
 // npm installs
-import { Provider }      from 'react-redux';
+import { Provider      } from 'react-redux';
 import { BrowserRouter } from 'react-router';
 import userEvent         from '@testing-library/user-event';
-import { act, render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 
 // project imports
 import { store    } from '../../app/store.js';

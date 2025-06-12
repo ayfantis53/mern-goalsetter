@@ -13,7 +13,7 @@ const initialState = {
     message:   ''
 };
 
-// create new goal calling goalservice createGoal api call
+// create new goal calling goalservice createGoal api call.
 export const createGoal = createAsyncThunk('goals/create', async(goalData, thunkAPI) => {
     try {
         const token = thunkAPI.getState().auth.user.token;
@@ -24,7 +24,7 @@ export const createGoal = createAsyncThunk('goals/create', async(goalData, thunk
     }
 });
 
-// get all goals calling goalservice getGoals api call
+// get all goals calling goalservice getGoals api call.
 export const getGoals = createAsyncThunk('goals/getAll', async(_, thunkAPI) => {
     try {
         const token = thunkAPI.getState().auth.user.token;
@@ -35,7 +35,7 @@ export const getGoals = createAsyncThunk('goals/getAll', async(_, thunkAPI) => {
     }
 });
 
-// delete goal calling goalservice deleteGoal api call
+// delete goal calling goalservice deleteGoal api call.
 export const deleteGoal = createAsyncThunk('goals/delete', async(id, thunkAPI) => {
     try {
         const token = thunkAPI.getState().auth.user.token;
@@ -46,7 +46,7 @@ export const deleteGoal = createAsyncThunk('goals/delete', async(id, thunkAPI) =
     }
 });
 
-// State Management
+// State Management.
 export const goalSlice = createSlice({
     name: 'goal',
     initialState,
@@ -97,6 +97,6 @@ export const goalSlice = createSlice({
     },
 });
 
-// export functions to be visible to other files
+// export functions to be visible to other files.
 export const { reset } = goalSlice.actions;
 export default goalSlice.reducer;

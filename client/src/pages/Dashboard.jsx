@@ -5,8 +5,8 @@ import { useSelector, useDispatch } from 'react-redux';
 
 // project imports
 import Spinner from '../components/Spinner';
-import { GoalForm, GoalItem} from '../components/__index.js';
-import { getGoals, reset } from '../actions/goals/goalSlice';
+import { GoalForm, GoalItem } from '../components/__index.js';
+import { getGoals, reset    } from '../actions/goals/goalSlice';
 
 
 /** ----------------------------------------------------------------------------------------

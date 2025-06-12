@@ -63,9 +63,7 @@ export default function Login() {
     <div data-testid='login-display'>
     {/* HEADING OF THE PAGE */}
       <section className='heading'>
-          <h1>
-              <FaSignInAlt /> Login  
-          </h1>
+          <h1> <FaSignInAlt /> Login </h1>
           <p> Please Enter your Credentials </p>
       </section>
     {/* LOGIN FORM */}
