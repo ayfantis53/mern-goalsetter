@@ -16,7 +16,6 @@
 
 **Setting up Exercise-Tracker App**
 ------------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------------
 
 * Dependencies.
     - Node.js
@@ -25,55 +24,54 @@
     - DockerDesktop (Enable Kubernetes) 
 
 * Initializing project folders and dependencies.
-    * > FrontEnd Client.
-        #### `cd client && npx create-react-app .`
-        #### `npm i axios react-router-dom react-icons react-toastify react-redux @reduxjs/toolkit`
-    * > Backend Server.
-        #### `cd server && npm init -y`
-        #### `npm i colors express cors mongoose dotenv bcryptjs jsonwebtoken express-async-handler && npm install -g nodemon`
+    - FrontEnd Client.
+        * > `cd client && npx create-react-app .`
+        * > `npm i axios react-router-dom react-icons react-toastify react-redux @reduxjs/toolkit`
+    - Backend Server.
+        * > `cd server && npm init -y`
+        * > `npm i colors express cors mongoose dotenv bcryptjs jsonwebtoken express-async-handler && npm install -g nodemon`
 
 * Setting up MongoAtlas DB.
-   > Navigate to [https://cloud.mongodb.com/] and login.
-   > Go to Clusters -> Collections -> Add my own data -> Create Collection .
+   - Navigate to [https://cloud.mongodb.com/] and login.
+   - Go to Clusters -> Collections -> Add my own data -> Create Collection .
 
 * Setting up Docker.
     - Login.
-        #### `docker login -u ${username}`
+        * > `docker login -u ${username}`
     - Docker cleanup commands.
-        #### `docker rm -f $(docker ps -aq)`
-        #### `docker image prune --all --force`
-        #### `docker system prune`
+        * > `docker rm -f $(docker ps -aq)`
+        * > `docker image prune --all --force`
+        * > `docker system prune`
    
 * Connecting to Database.
-    * > Go to Clusters -> Connect -> MongoDB for VS Code.
-    * > Copy uri into var <ATLAS_URI> in .env file with extension [goalSetter?retryWrites=true&w=majority]
-    * > In [k8s/secret.yml] need to update the <data.DBPASSWORD> to base-encoded64 <ATLAS_URI>
-        #### `echo -n ${WORD} | base64` 
-        - output of that command is the value of the secret.
+    - Go to Clusters -> Connect -> MongoDB for VS Code.
+    - Copy uri into var <ATLAS_URI> in .env file with extension [goalSetter?retryWrites=true&w=majority]
+    - In [k8s/secret.yml] need to update the <data.DBPASSWORD> to base-encoded64 <ATLAS_URI>
+        * > `echo -n ${WORD} | base64` 
+        * > output of that command is the value of the secret.
 
 
 
 **Running Exercise-Tracker App locally**
 ------------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------------
 
 * Debugging.
-    > <Shift><Ctrl><J> to open browser console for debugging.
-    > #### `npm ls react`
-    > #### `npm cache clean --force`
-    > #### `npm install -g npm`
+    - <Shift><Ctrl><J> to open browser console for debugging.
+    - `npm ls react`
+    - `npm cache clean --force`
+    - `npm install -g npm`
 
 * Running project manually.
-    > Open two terminals.
-    #### `cd server && npm start`
-    #### `cd client && npm start`
+    - Open two terminals.
+        * > `cd server && npm start`
+        * >`cd client && npm start`
 
 * Running project Docker.
     - Run project.
         * > On windows machine open DockerDesktop.
         * > navigate to [http://localhost:3050/] in browser after running compose.
-            #### `docker-compose -f docker-compose.dev.yml up --detach`
-            #### `docker-compose -f docker-compose.dev.yml down`
+            * > `docker-compose -f docker-compose.dev.yml up --detach`
+            * > `docker-compose -f docker-compose.dev.yml down`
 
 * Running project K8s.
     - Initiate K8s.
@@ -83,28 +81,27 @@
             > `line 26`: take out the "/api"
             > `line 27`: take out the "/api"
         * > Build Images.
-            #### `docker build -t ayfantis53/mern-goalsetter-client ./client`
-            #### `docker build -t ayfantis53/mern-goalsetter-server ./server`
+            > `docker build -t ayfantis53/mern-goalsetter-client ./client`
+            > `docker build -t ayfantis53/mern-goalsetter-server ./server`
         * > Push to Dockerhub.
-            #### `docker push ayfantis53/mern-goalsetter-client` 
-            #### `docker push ayfantis53/mern-goalsetter-server` 
+            > `docker push ayfantis53/mern-goalsetter-client` 
+            > `docker push ayfantis53/mern-goalsetter-server` 
     - Run project.
-        - Apply Ingress Controller from Kubernetes.
-            #### `kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.12.2/deploy/static/provider/cloud/deploy.yaml`
-        - Get rid of this validating webhook or our ingress service will not build.
-            #### `kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission`
-        - Apply our Deployment files.
-            #### `kubectl apply -f k8s/`
-        > navigate to [127.0.0.1:8080] in browser.
+        * > Apply Ingress Controller from Kubernetes.
+            > `kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.12.2/deploy/static/provider/cloud/deploy.yaml`
+        * > Get rid of this validating webhook or our ingress service will not build.
+            > `kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission`
+        * > Apply our Deployment files.
+            > `kubectl apply -f k8s/`
+        * > navigate to [127.0.0.1:8080] in browser.
 
     - Take down project.
-        #### `kubectl delete -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.12.2/deploy/static/provider/cloud/deploy.yaml`
-        #### `kubectl delete -f k8s/`
+        * > `kubectl delete -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.12.2/deploy/static/provider/cloud/deploy.yaml`
+        * > `kubectl delete -f k8s/`
 
 
 
 **Running Exercise-Tracker App in Cloud (AWS)**
-------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------
 * Travis CI Setup.
     - [https://app.travis-ci.com/]
@@ -197,9 +194,3 @@
         > aws eks list-clusters --region us-east-2
         > aws eks update-kubeconfig --region us-east-2 --name eks-cluster
         > kubectl get svc
-
-
-
-------------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------------
