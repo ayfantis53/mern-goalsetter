@@ -83,7 +83,7 @@ docker system prune
 ### 3. Running project Docker.
 - **Run project.**
     * On windows machine open DockerDesktop.
-    * navigate to [http://localhost:3050/] in browser after running compose.
+    * navigate to **[http://localhost:3050/]** in browser after running compose.
         ```bash
         docker-compose -f docker-compose.dev.yml up --detach
         docker-compose -f docker-compose.dev.yml down
