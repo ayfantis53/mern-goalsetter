@@ -1,21 +1,26 @@
+# ==================================================================================== #
+#                             -- Docker-Compose-Release --                             #
+# ==================================================================================== #
+
+# container for all components to deploy, which can be scaled or updated independently
 services:
-  client:
-    # FRONTEND CONTAINER
-    image: 'ayfantis53/mern-goalsetter-client'
-    mem_limit: 256m
-    hostname: client
-  server:
-    # BACKEND CONTAINER
-    image: 'ayfantis53/mern-goalsetter-server'
-    mem_limit: 128m
-    hostname: api
-    environment:
+   # 1. React Client Service
+  client:                                         # Define service named: client.
+    image: 'ayfantis53/mern-goalsetter-client'    # Specify the Docker image to use.
+    mem_limit: 256m                               # This restricts the total RAM the container can use on the host system.
+    hostname: client                              # Explicitly sets the hostname *inside* the container to client.
+  # 2. Node/Backend Service
+  server:                                         # Define service named: server.
+    image: 'ayfantis53/mern-goalsetter-server'    # Specify the Docker image to use.
+    mem_limit: 128m                               # This restricts the total RAM the container can use on the host system.
+    hostname: api                                 # Explicitly sets the hostname *inside* the container to api.
+    environment:                                  # Sets environment variables inside the container.
       - ATLAS_URI=$ATLAS_URI
       - PORT=$PORT
-  nginx:
-    # REVERSE PROXY ROUTING CONTAINER
-    image: 'ayfantis53/mern-goalsetter-nginx'
-    mem_limit: 128m
-    hostname: nginx
-    ports:
-      - "80:80"
+   # 3. Nginx Reverse Proxy & Static File Server
+   nginx:                                         # Define service named: nginx.
+    image: 'ayfantis53/mern-goalsetter-nginx'     # Specify the Docker image to use.
+    mem_limit: 128m                               # This restricts the total RAM the container can use on the host system.
+    hostname: nginx                               # Explicitly sets the hostname *inside* the container to nginx.
+    ports:                                        # Maps ports from the host machine to the container. 
+      - "80:80"        # "80:80" means that traffic on port 80 of your host is routed to port 80 (the default NGINX port) inside the container.
