@@ -1,24 +1,26 @@
-# SERVER BACKEND DEPLOYMENT
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: server-deployment
-spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      component: server
-  template:
-    metadata:
-      labels:
-        component: server
-    spec:
+# ================================================================================== # 
+#                             SERVER BACKEND DEPLOYMENT                              #
+# ================================================================================== #
+apiVersion: apps/v1        # Specifies the Kubernetes API version you want to use for the object.
+kind: Deployment           # Defines the type of Kubernetes object you want to create.
+metadata:                  # Contains data that helps uniquely identify the object, ie name, labels, & annotations.
+  name: server-deployment     # Unique name within the namespace.
+spec:                      # The object specification, desired state of Deployment, i.e. details like # of replicas, container image to use, and Pod template.
+  replicas: 3                 # Number of desired pods.
+  selector:                   # Defines which Pods are managed by this Deployment.
+    matchLabels:                  # Must match the labels in the Pod template metadata
+      component: server               # Targets pods with the label component
+  template:                   # Defines the blueprint for the Pods.
+    metadata:                     # Contains data that helps uniquely identify the Pods.
+      labels:                         # Labels assigned to each Pod
+        component: server                 # Targets pods with the label component
+    spec:                         # Specification of the Pod's desired state
       containers:
-        - name: server
-          image: ayfantis53/mern-goalsetter-server
+        - name: server                              # Name of the container
+          image: ayfantis53/mern-goalsetter-server  # Container image to use
           ports:
-            - containerPort: 5000
-          env:
+            - containerPort: 5000                   # Port the container exposes
+          env:                                      # Environmental variables
             - name: PORT
               value: '5000'
             - name: NODE_ENV
@@ -36,15 +38,17 @@ spec:
 
 ---
 
-# SERVICE FOR POD COMMUNCATION
-apiVersion: v1
-kind: Service
-metadata:
-  name: server-cluster-ip-service
-spec:
-  type: ClusterIP
+# ================================================================================== #
+#                            SERVICE FOR POD COMMUNCATION                            #
+# ================================================================================== # 
+apiVersion: v1              # Specifies the API version
+kind: Service               # Defines the object type as Service
+metadata:                   # Contains data that helps uniquely identify the object
+  name: server-cluster-ip-service # A unique name for the service within the namespace
+spec:                       # Service specification details like ports and selectors go here
+  type: ClusterIP                 # Exposes on a cluster-internal IP. Makes Service only reachable from within the cluster.
   selector:
-    component: server
+    component: server                    # Targets pods with the label component
   ports:
-    - port: 5000
-      targetPort: 5000
+    - port: 5000                      # The port the Service itself exposes
+      targetPort: 5000                # The port the containers in the Pods are listening on
