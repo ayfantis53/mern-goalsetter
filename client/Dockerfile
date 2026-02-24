@@ -16,20 +16,24 @@
 # For building Goals frontend on pipeline
 ############################################################################################
 
-# Use Node image as base layer
+# Use the official Node.js image as the base image for the builder stage.
 FROM node:latest AS builder
 
-# Create app directory
+# Set the working directory inside the container to /app
 WORKDIR '/app'
 
-# Install app dependencies
+# Copy package.json and package-lock.json (if present) to the working directory.
 COPY ./package*.json ./
+
+# Run npm install to install project dependencies.
+# This leverages Docker's layer caching, so dependencies only reinstall if package*.json changes.
 RUN npm install
 
-# Bundle app source
+# Copy the rest of the application code to the container.
 COPY . .
 
-# run app use RUN and not CMD for this is production
+# Run the npm build script specified in package.json.
+# This creates the optimized production build of the application in the 'build' directory.
 RUN npm run build
 
 ############################################################################################
@@ -38,12 +42,18 @@ RUN npm run build
 # For k8s deployment of app
 ############################################################################################
 
-# Use Nginx image as base layer
+# Use the official Nginx image as the base image for serving the application.
 FROM nginx
 
-# expose port for pod communication
-EXPOSE 3000
+# Expose port 80 to the outside world
+# Note: The original Dockerfile requested EXPOSE 3000, but Nginx typically serves on port 80 by default.
+# The configuration file likely maps Nginx to port 80.
+EXPOSE 80
 
-# Copy our config into container
+# Copy a custom Nginx configuration file to the container.
+# This file is used to configure how Nginx serves the application and handles routing.
 COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
+
+# Copy the build artifacts from the 'builder' stage to the Nginx web root directory.
+# This efficiently transfers only the static files needed for production, without the build tools or source code.
 COPY --from=builder /app/build /usr/share/nginx/html
