@@ -1,6 +1,6 @@
-# ---------------------------------------------------------------------------------- # 
+# ================================================================================== # 
 #                      REACT FRONTEND DEPLOYMENT                                     #
-# ---------------------------------------------------------------------------------- #
+# ================================================================================== #
 apiVersion: apps/v1        # Specifies the Kubernetes API version you want to use for the object.
 kind: Deployment           # Defines the type of Kubernetes object you want to create.
 metadata:                  # Contains data that helps uniquely identify the object, ie name, labels, & annotations.
@@ -28,9 +28,9 @@ spec:                      # The object specification, desired state of Deployme
 
 ---
 
-# ---------------------------------------------------------------------------------- #
+# ================================================================================== #
 #                      SERVICE FOR POD COMMUNCATION                                  #
-# ---------------------------------------------------------------------------------- # 
+# ================================================================================== # 
 apiVersion: v1              # Specifies the API version
 kind: Service               # Defines the object type as Service
 metadata:                   # Contains data that helps uniquely identify the object
