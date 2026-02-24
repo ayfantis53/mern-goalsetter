@@ -32,8 +32,5 @@ RUN npm install
 # Copy the rest of the application source code to /app
 COPY . .
 
-# Build the application (e.g., compile TypeScript, build frontend assets)
-RUN npm run build
-
 # Set default command to run after the container starts
 CMD ["npm", "run", "build"]
