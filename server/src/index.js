@@ -1,7 +1,6 @@
 // npm installs
 import cors     from 'cors';
 import dotenv   from 'dotenv';
-import colors   from 'colors';
 import express  from 'express';
 
 // project imports

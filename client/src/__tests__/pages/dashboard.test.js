@@ -21,8 +21,8 @@ describe('|--------------------- register-form.test.js render ------------------
                 <BrowserRouter>
                     <Dashboard />
                 </BrowserRouter>
-                </Provider>
-            );
+            </Provider>
+        );
     });
 
     // -- Validate page renders correctly.

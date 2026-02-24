@@ -1,9 +1,9 @@
 /**
  * middleware function specifically designed to handle errors in applications
- * @param {*} err  The error object representing the error that occurred.
- * @param {*} req  The request object containing information about the incoming client request.
- * @param {*} res  The response object used to send responses back to the client.
- * @param {*} next A function to pass control to the next middleware function in the chain.
+ * @param {Error} err  The error object representing the error that occurred.
+ * @param {object} req  The request object containing information about the incoming client request.
+ * @param {object} res  The response object used to send responses back to the client.
+ * @param {function} next A function to pass control to the next middleware function in the chain.
  */
 const errorHandler = (err, req, res, next) => {
     // Want to get the status code if it already exists if not make it a 500.

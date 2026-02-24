@@ -1,5 +1,6 @@
 // npm installs
 import mongoose from 'mongoose';
+import colors   from 'colors';
 
 
 /**

@@ -1,4 +1,23 @@
-FROM node:24-alpine
+############################################################################################
+#
+#    ____ _ _            _     ____             
+#   / ___| (_) ___ _ __ | |_  |  _ \  _____   __
+#  | |   | | |/ _ \ '_ \| __| | | | |/ _ \ \ / /
+#  | |___| | |  __/ | | | |_  | |_| |  __/\ V / 
+#   \____|_|_|\___|_| |_|\__| |____/ \___| \_/                            
+#
+# CLIENT DEV
+#
+# https://github.com/ayfantis53/mern-memories/blob/master/client/Dockerfile.dev
+
+############################################################################################
+# Node Building Layer
+# This is a MINIMAL RUNTIME image to run Node project
+# For testing Goals frontend locally
+############################################################################################
+
+# Use Node image as base layer
+FROM node:latest
 
 # Create app directory
 WORKDIR '/app'

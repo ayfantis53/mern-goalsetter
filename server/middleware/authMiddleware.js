@@ -8,9 +8,9 @@ import User from '../models/user.model.js';
 
 /**
  *  Secure routes by verifying user authentication and authorization
- * @param {*} req  The request object containing information about the incoming client request.
- * @param {*} res  The response object used to send responses back to the client.
- * @param {*} next A function to pass control to the next middleware function in the chain.
+ * @param {object} req  The request object containing information about the incoming client request.
+ * @param {object} res  The response object used to send responses back to the client.
+ * @param {function} next A function to pass control to the next middleware function in the chain.
  * @return void
  */
 const protect = asyncHandler(async(req, res, next) => {

@@ -7,7 +7,7 @@ import { deleteGoal } from '../actions/goals/goalSlice';
 
 /** ----------------------------------------------------------------------------------------
  * 
- * @param {*} param0 goal is passed into page to be displayed in html based on its information.
+ * @param {GoalItem} goal goal is passed into page to be displayed in html based on its information.
  * @returns How Goal item gets displayed in dashboard
  * ----------------------------------------------------------------------------------------*/
 export default function GoalItem({ goal }) {

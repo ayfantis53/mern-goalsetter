@@ -17,11 +17,13 @@ describe('|--------------------- goal-form.test.js render ---------------------|
     // -- Hook to render page before each test.
     beforeEach(async () => {
         // render page.
-        render(<Provider store={store}>
-                    <BrowserRouter>
+        render(
+            <Provider store={store}>
+                <BrowserRouter>
                     <GoalForm />
-                    </BrowserRouter>
-                </Provider>);
+                </BrowserRouter>
+            </Provider>
+        );
 
         /** provide an empty implementation for window.alert. */
         // remember the jsdom alert.

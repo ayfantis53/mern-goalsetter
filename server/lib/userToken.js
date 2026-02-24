@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 
 /**
  * Create a unique token, often for authentication/identification purposes
- * @param {*} id used to create a unique and secure token drom user's id in db. 
+ * @param {String} id used to create a unique and secure token drom user's id in db. 
  * @returns a unique token that lasts 30d
  */
 const generateToken = (id) => {
