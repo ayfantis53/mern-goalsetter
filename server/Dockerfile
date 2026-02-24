@@ -16,18 +16,24 @@
 # For building Goals app backend on pipeline
 ############################################################################################
 
-# Use Node image as base layer
+# Use the latest official Node.js image as base
 FROM node:latest
 
-# Create app directory
-WORKDIR '/app'
+# Set the working directory inside the container to /app
+WORKDIR /app
 
-# Install app dependencies
-COPY ./package*.json ./
+# Copy package.json and package-lock.json first to leverage Docker cache.
+# This prevents reinstalling dependencies if only application code changes.
+COPY package*.json ./
+
+# Install project dependencies
 RUN npm install
 
-# Bundle app source
+# Copy the rest of the application source code to /app
 COPY . .
 
-# run app
+# Build the application (e.g., compile TypeScript, build frontend assets)
+RUN npm run build
+
+# Set default command to run after the container starts
 CMD ["npm", "run", "build"]
