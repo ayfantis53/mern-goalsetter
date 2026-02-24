@@ -8,7 +8,7 @@ sudo: required                # Request root privileges for Docker service acces
 services:                     # Start the Docker daemon.
   - docker
 
-# 2. --  Build the Docker image before running tests --  
+# 2. --  Build the Docker image before running tests -- #
 before_install:
   - docker build -t ayfantis53/react-test -f ./client/Dockerfile.dev ./client
 
