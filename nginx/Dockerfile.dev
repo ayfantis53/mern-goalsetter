@@ -8,7 +8,7 @@
 #
 # NGINX
 #
-# https://github.com/ayfantis53/mern-memories/blob/master/nginx/Dockerfile
+# https://github.com/ayfantis53/mern-memories/blob/master/nginx/Dockerfile.dev
 
 ############################################################################################
 # Nginx Building Layer
