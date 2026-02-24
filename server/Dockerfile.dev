@@ -16,18 +16,25 @@
 # For building Goals app backend locally
 ############################################################################################
 
-# Use Node image as base layer
+# Use the official Node.js runtime as the parent image.
+# This provides the necessary environment to run a Node.js application.
 FROM node:latest
 
-# Create app directory
+# Set the working directory inside the container.
+# All subsequent instructions will be executed relative to this directory.
 WORKDIR '/app'
 
-# Install app dependencies
+# Copy the application's package.json and package-lock.json files to the container.
+# This allows the installation of dependencies to leverage Docker's build cache effectively.
 COPY ./package*.json ./
+
+# Install project dependencies.
+# Docker will only re-run this step if the package*.json files have changed, saving build time.
 RUN npm install
 
-# Bundle app source
+# Copy the rest of the application's source code to the container's working directory.
 COPY . .
 
-# run app
+# Specify the command to run when the container starts.
+# This command builds the application, which is the default behavior when the container runs.
 CMD ["npm", "run", "build"]
