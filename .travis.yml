@@ -1,31 +1,35 @@
-# ------------------------------------------------------------------------------------------- #
-# ------------------------------------ELB DEPLOYMENT----------------------------------------- #
-language: generic
-sudo: required
-services:
+# ==================================================================================== #
+#                                 -- AWS ELB Deployment --                             #
+# ==================================================================================== #
+
+# 1. --  Environment Configuration -- #
+language: generic             # Use "generic" language for Docker-based builds (allows full control over the environment).
+sudo: required                # Request root privileges for Docker service access.
+services:                     # Start the Docker daemon.
   - docker
 
-# Create image to run test
+# 2. --  Build the Docker image before running tests --  
 before_install:
   - docker build -t ayfantis53/react-test -f ./client/Dockerfile.dev ./client
 
-# Tests
+# 3. --  Run tests within the Docker container -- #
 script:
   - docker run -e CI=true ayfantis53/react-test npm test
 
-# Production images build
+# 4. --  Actions to perform only if the test script succeeds -- #
 after_success: 
-  # Make images
+  # Build Images.
   - docker build -t ayfantis53/mern-goalsetter-client ./client
   - docker build -t ayfantis53/mern-goalsetter-nginx ./nginx
   - docker build -t ayfantis53/mern-goalsetter-server ./server
-  # Log in docker CLI
+  # Login to docker CLI.
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  # Push images to DockerHub
+  # Push Built images to DockerHub.
   - docker push ayfantis53/mern-goalsetter-client 
   - docker push ayfantis53/mern-goalsetter-nginx
   - docker push ayfantis53/mern-goalsetter-server 
 
+# 5. --  Deployment configuration for Elastic BeanStalk -- #
 deploy:
   provider: elasticbeanstalk
   region: "us-east-2"
@@ -39,41 +43,48 @@ deploy:
   secret_access_key: "$AWS_SECRET_KEY"
   edge: true
 
-# ------------------------------------------------------------------------------------------- #
-# ------------------------------------EKS DEPLOYMENT----------------------------------------- #
-# sudo: required
-# services:
+# # ==================================================================================== #
+# #                                 -- AWS EKS Deployment --                             #
+# # ==================================================================================== #
+
+# # 1. --  Environment Configuration  -- #
+# sudo: required                # Request root privileges for Docker service access.
+# services:                     # Start the Docker daemon.
 #   - docker
-# env:
+# env:                          # allows defining shared environment variables across all build stages.
 #   global:
-#     - SHA=$(git rev-parse HEAD)
+#     - SHA=$(git rev-parse HEAD)   # Capture the full 40-character commit SHA for build tagging and artifact tracking.
+
+# # 2. -- Install and setup all dependencies  -- #
 # before_install:
-#   # Install kubectl
+#   # Install  and setup kubectl.
 #   - curl -LO https://dl.k8s.io/release/v1.22.0/bin/linux/amd64/kubectl
 #   - chmod +x ./kubectl
 #   - sudo mv ./kubectl /usr/local/bin/kubectl
 
-#   # Install AWS CLI
+#   # Install AWS CLI.
 #   - if ! [ -x "$(command -v aws)" ]; then curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" ; unzip awscliv2.zip ; sudo ./aws/install ; fi
-#   # Export environment variables for AWS CLI (using Travis environment variables)
+  
+#   # Export environment variables for AWS CLI (using Travis environment variables).
 #   - export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
 #   - export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
 #   - export AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}
-#   # Setup kubectl config to use the desired AWS EKS cluster
+
+#   # Setup kubectl config to use the desired AWS EKS cluster.
 #   - aws eks update-kubeconfig --region ${AWS_DEFAULT_REGION} --name ${AWS_EKS_CLUSTER_NAME}
-  
+
+#   # Login to docker CLI.
 #   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 #   - docker build -t ayfantis53/multi-client -f ./client/Dockerfile.dev ./client
-#   # - aws s3 ls
+#   - aws s3 ls
 
-#   # Load Balancer Setup
-  
-
+# # 3. --  Run tests within the Docker container -- #
 # script:
 #   - docker run -e CI=true ayfantis53/multi-client npm test
 
+# # 4. --  Deployment configuration for Elastic Kubernetes Service -- #
 # deploy:
-#   provider: script
+#   provider: script                  # Use the custom script provider for arbitrary commands
 #   script:
 #     # - docker build -t ayfantis53/mern-goalsetter-client:latest -t ayfantis53/mern-goalsetter-client:$SHA -f ./client/Dockerfile ./client
 #     # - docker build -t ayfantis53/mern-goalsetter-server:latest -t ayfantis53/mern-goalsetter-server:$SHA -f ./server/Dockerfile ./server
@@ -84,13 +95,16 @@ deploy:
 #     # - docker push ayfantis53/mern-goalsetter-client:$SHA
 #     # - docker push ayfantis53/mern-goalsetter-server:$SHA
 
+#     # Start EKS cluster.
 #     - echo "starting"
 #     - aws eks --region us-east-2 describe-cluster --name eks-cluster --query cluster.status
 #     - kubectl get svc
-#     - 
+    
+#     # Start Kubernetes Ingress controller.
 #     - echo "installing Ingress-Nginx"
 #     - kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.3.1/deploy/static/provider/aws/deploy.yaml
-#     - 
+    
+#     # Start up manifest files.
 #     - echo "applying k8 files"
 #     - kubectl apply -f ./k8s/
 
@@ -98,7 +112,5 @@ deploy:
 #     # - kubectl set image deployments/client-deployment client=ayfantis53/mern-goalsetter-client:$SHA
 
 #     - echo "done"
-#   on:
-#     branch: master
-
-
+#   on:                               # .travis.yml file configured to build only on the master branch 
+#     branch: master     
