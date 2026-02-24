@@ -1,37 +1,29 @@
-apiVersion: networking.k8s.io/v1
-# UPDATE API
-kind: Ingress
-metadata:
-  name: ingress-service
-  annotations:
-    # REMOVE CLASSNAME ANNOTATION
-    nginx.ingress.kubernetes.io/use-regex: 'true'
-    # ADD ANNOTATION
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
-    # ADD ANNOTATION
-spec:
-  ingressClassName: nginx
-  # ADD INGRESSCLASSNAME FIELD
-  rules:
-    - http:
-        paths:
-          - path: /?(.*)
-            # UPDATE PATH
-            pathType: ImplementationSpecific
-            # ADD PATHTYPE
-            backend:
+# ================================================================================== # 
+#                                  INGRESS SERVICE                                   #
+# ================================================================================== #
+apiVersion: networking.k8s.io/v1                     # For Ingress resources, networking.k8s.io/v1 is standard for modern Kubernetes versions (>=1.19.x).
+kind: Ingress                                        # The kind field specifies the type of Kubernetes resource this manifest defines.
+metadata:                                            # provides information about the resource, such as its name and optional annotations/labels.
+  name: ingress-service                                 # The name of the Ingress resource.
+  annotations:                                          # Annotations are used to specify controller-specific configurations.   
+    nginx.ingress.kubernetes.io/use-regex: 'true'           # REMOVE CLASSNAME ANNOTATION
+    nginx.ingress.kubernetes.io/rewrite-target: /$1         # ADD ANNOTATION
+spec:                                                # The spec defines the desired state of the Ingress resource.
+  ingressClassName: nginx                               # The spec defines the desired state of the Ingress resource.
+  rules:                                                # Rules define how traffic should be routed based on host and path.
+    - http:                                                 # Each rule can specify a 'host' (domain name).
+        paths:                                                  # Paths define routing based on the URL path.
+          - path: /?(.*)                                            # The specific path to match in the incoming request URI.
+            pathType: ImplementationSpecific                        # pathType determines how the path matching is done (e.g., Prefix, Exact, ImplementationSpecific).
+            backend:                                                # The backend specifies the service and port where matched traffic should be directed.
               service:
-                # UPDATE SERVICE FIELDS
-                name: client-cluster-ip-service
-                port:
+                name: client-cluster-ip-service                             # The name of the target Kubernetes Service (must be in the same namespace).
+                port:                                                       # The port on the target Service to which traffic should be sent.
                   number: 3000
-          - path: /api/?(.*)
-            # UPDATE PATH
-            pathType: ImplementationSpecific
-            # ADD PATHTYPE
-            backend:
+          - path: /api/?(.*)                                        # The specific path to match in the incoming request URI.
+            pathType: ImplementationSpecific                        # pathType determines how the path matching is done (e.g., Prefix, Exact, ImplementationSpecific).
+            backend:                                                # The backend specifies the service and port where matched traffic should be directed.
               service:
-                # UPDATE SERVICE FIELDS
-                name: server-cluster-ip-service
-                port:
+                name: server-cluster-ip-service                             # The name of the target Kubernetes Service (must be in the same namespace).
+                port:                                                       # The port on the target Service to which traffic should be sent.
                   number: 5000
