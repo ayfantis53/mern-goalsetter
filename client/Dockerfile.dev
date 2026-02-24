@@ -16,18 +16,28 @@
 # For testing Goals frontend locally
 ############################################################################################
 
-# Use Node image as base layer
+
+# Use an official Node.js with specific tag (latest) runtime as the base image.
 FROM node:latest
 
-# Create app directory
+# Set the working directory inside the container.
+# All subsequent commands (COPY, RUN, CMD) will be executed relative to this directory.
 WORKDIR '/app'
 
-# Install app dependencies
+# Copy package.json and package-lock.json (if present) from the host to the container's working directory.
+# This allows npm install to leverage layer caching effectively.
 COPY ./package*.json ./
+
+# Install project dependencies.
+# This command runs after copying the package files to a new layer.
+# The output of this command (node_modules directory) will be cached unless package*.json changes.
 RUN npm install
 
-# Bundle app source
+# Copy the rest of the application source code from the host to the container's working directory.
+# The previously created node_modules directory will remain intact.
 COPY . .
 
-# run app
+# Specify the command to run when the container starts.
+# The exec form of CMD is used (JSON array), which runs the command directly without a shell.
+# This ensures that the application is the primary process of the container.
 CMD ["npm", "run", "start"]
