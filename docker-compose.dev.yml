@@ -1,35 +1,40 @@
+# ==================================================================================== #
+#                             -- Docker-Compose-Development --                         #
+# ==================================================================================== #
+
+# container for all components to deploy, which can be scaled or updated independently
 services:
-  api:
-    # BACKEND CONTAINER
-    image: ayfantis53/mern-goalsetter-server
-    build: 
-      dockerfile: Dockerfile.dev
-      context: ./server
-    volumes:
+  # 1. React Node/Backend Service
+  api:                                         # Define service named: api.
+    image: ayfantis53/mern-goalsetter-server   # Specify the Docker image to use.
+    build:                                     # tell Compose how to create the image for this service.
+      dockerfile: Dockerfile.dev               # path to Dockerfile relative to the 'context' directory.
+      context: ./server                        # a path to a directory containing a Dockerfile.
+    volumes:                                   # instruction defines mount points for the container when it is running.
       - /app/node_modules
       - ./server:/app
-    ports:
-      - '5000:5000'
-  client:
-    # FRONTEND CONTAINER
-    image: ayfantis53/mern-goalsetter-client
-    build: 
-      dockerfile: Dockerfile.dev
-      context: ./client
-    volumes:
+    ports:                                     # maps port on host machine to port in container allowing access to the application from outside the container's network.
+      - '5000:5000'                 # maps port 5000 inside the container to port 5000 on the host machine.
+  # 2. React Client Service
+  client:                                      # Define service named: client.
+    image: ayfantis53/mern-goalsetter-client   # Specify the Docker image to use.
+    build:                                     # tell Compose how to create the image for this service.
+      dockerfile: Dockerfile.dev               # path to Dockerfile relative to the 'context' directory.
+      context: ./client                        # a path to a directory containing a Dockerfile.
+    volumes:                                   # instruction defines mount points for the container when it is running.
       - /app/node_modules
       - ./client:/app
-    environment:
+    environment:                               # Sets environment variables inside the container.
       - WDS_SOCKET_PORT=0
-  nginx:
-    # REVERSE PROXY ROUTING CONTAINER
-    depends_on:
+  # 3. Nginx Reverse Proxy & Static File Server
+  nginx:                                       # Define service named: nginx.
+    depends_on:                                # express dependencies between services and control the startup and shutdown order of the containers.
       - api
       - client
-    restart: always
-    image: ayfantis53/mern-goalsetter-nginx
-    build:
-      dockerfile: Dockerfile.dev
-      context: ./nginx
-    ports:
-      - '3050:80'
+    restart: always                            # property defines the restart policy for a service's containers.                           
+    image: ayfantis53/mern-goalsetter-nginx    # Specify the Docker image to use.
+    build:                                     # tell Compose how to create the image for this service.
+      dockerfile: Dockerfile.dev               # path to Dockerfile relative to the 'context' directory.
+      context: ./nginx                         # a path to a directory containing a Dockerfile.
+    ports:                                     # maps port on host machine to port in container allowing access to the application from outside the container's network.
+      - '3050:80'                 # maps port 3050 inside the container to port 80 on the host machine.
