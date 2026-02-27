@@ -8,7 +8,7 @@
 #
 # SERVER
 #
-# https://github.com/ayfantis53/mern-memories/blob/master/server/Dockerfile
+# https://github.com/ayfantis53/mern-goalsetter/blob/master/server/Dockerfile
 
 ############################################################################################
 # Node Building Layer
