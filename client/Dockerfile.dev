@@ -8,7 +8,7 @@
 #
 # CLIENT DEV
 #
-# https://github.com/ayfantis53/mern-memories/blob/master/client/Dockerfile.dev
+# https://github.com/ayfantis53/mern-goalsetter/blob/master/client/Dockerfile.dev
 
 ############################################################################################
 # Node Building Layer
