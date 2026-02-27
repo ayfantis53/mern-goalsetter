@@ -106,7 +106,7 @@ docker system prune
     docker push ayfantis53/mern-goalsetter-server
     ```
 #### Run project.
-- **Navigate to [127.0.0.1:8080] in browser.**
+- **Navigate to [127.0.0.1:80] in browser.**
 ```bash
 # Apply Ingress Controller from Kubernetes.
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.12.2/deploy/static/provider/cloud/deploy.yaml
@@ -119,9 +119,17 @@ kubectl apply -f k8s/
 #### Take down project.
 ```bash
 # Take down Ingress
-kubectl delete -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.12.2/deploy/static/provider/cloud/deploy.yaml`
+kubectl delete -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.12.2/deploy/static/provider/cloud/deploy.yaml
 # Take down local manifests
 kubectl delete -f k8s/
+```
+
+#### Debug K8 project.
+```bash
+# Check status of all pods
+kubectl get pods
+# Get more detail on specific pod
+kubectl describe pod ${pod-name}
 ```
 
 -----------------------------------------------------------------------------------------------------------------

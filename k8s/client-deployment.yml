@@ -1,5 +1,5 @@
 # ================================================================================== # 
-#                      REACT FRONTEND DEPLOYMENT                                     #
+#                          ** REACT FRONTEND DEPLOYMENT **                           #
 # ================================================================================== #
 apiVersion: apps/v1        # Specifies the Kubernetes API version you want to use for the object.
 kind: Deployment           # Defines the type of Kubernetes object you want to create.
@@ -8,19 +8,19 @@ metadata:                  # Contains data that helps uniquely identify the obje
 spec:                      # The object specification, desired state of Deployment, i.e. details like # of replicas, container image to use, and Pod template.
   replicas: 3                 # Number of desired pods.
   selector:                   # Defines which Pods are managed by this Deployment.
-    matchLabels:                  # Must match the labels in the Pod template metadata
+    matchLabels:                  # Must match the labels in the Pod template metadata.
       component: web
   template:                   # Defines the blueprint for the Pods.
     metadata:                     # Contains data that helps uniquely identify the Pods.
       labels:                         # Labels assigned to each Pod
         component: web
-    spec:                         # Specification of the Pod's desired state
+    spec:                         # Specification of the Pod's desired state.
       containers:
-        - name: client                              # Name of the container
-          image: ayfantis53/mern-goalsetter-client  # Container image to use
+        - name: client                              # Name of the container.
+          image: ayfantis53/mern-goalsetter-client  # Container image to use.
           ports:
-            - containerPort: 3000                   # Port the container exposes
-          env:                                      # Environmental variables
+            - containerPort: 3000                   # Port the container exposes.
+          env:                                      # Environmental variables.
             - name: GENERATE_SOURCEMAP
               value: 'false'
             - name: DANGEROUSLY_DISABLE_HOST_CHECK
@@ -29,16 +29,16 @@ spec:                      # The object specification, desired state of Deployme
 ---
 
 # ================================================================================== #
-#                      SERVICE FOR POD COMMUNCATION                                  #
-# ================================================================================== # 
-apiVersion: v1              # Specifies the API version
-kind: Service               # Defines the object type as Service
-metadata:                   # Contains data that helps uniquely identify the object
-  name: client-cluster-ip-service # A unique name for the service within the namespace
-spec:                       # Service specification details like ports and selectors go here
+#                         ** SERVICE FOR POD COMMUNICATION **                        #
+# ================================================================================== #
+apiVersion: v1              # Specifies the API version.
+kind: Service               # Defines the object type as Service.
+metadata:                   # Contains data that helps uniquely identify the object.
+  name: client-cluster-ip-service # A unique name for the service within the namespace.
+spec:                       # Service specification details like ports and selectors go here.
   type: ClusterIP                 # Exposes on a cluster-internal IP. Makes Service only reachable from within the cluster.
   selector:
-    component: web                    # Targets pods with the label component
+    component: web                    # Targets pods with the label component.
   ports:
-    - port: 3000                      # The port the Service itself exposes
-      targetPort: 3000                # The port the containers in the Pods are listening on
+    - port: 3000                      # The port the Service itself exposes.
+      targetPort: 3000                # The port the containers in the Pods are listening on.

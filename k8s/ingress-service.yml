@@ -1,11 +1,11 @@
 # ================================================================================== # 
-#                                  INGRESS SERVICE                                   #
+#                               ** INGRESS SERVICE **                                #
 # ================================================================================== #
 apiVersion: networking.k8s.io/v1                     # For Ingress resources, networking.k8s.io/v1 is standard for modern Kubernetes versions (>=1.19.x).
 kind: Ingress                                        # The kind field specifies the type of Kubernetes resource this manifest defines.
 metadata:                                            # provides information about the resource, such as its name and optional annotations/labels.
   name: ingress-service                                 # The name of the Ingress resource.
-  annotations:                                          # Annotations are used to specify controller-specific configurations.   
+  annotations:                                          # Annotations are used to specify controller-specific configurations.
     nginx.ingress.kubernetes.io/use-regex: 'true'           # REMOVE CLASSNAME ANNOTATION
     nginx.ingress.kubernetes.io/rewrite-target: /$1         # ADD ANNOTATION
 spec:                                                # The spec defines the desired state of the Ingress resource.

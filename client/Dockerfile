@@ -16,7 +16,8 @@
 # For building Goals frontend on pipeline
 ############################################################################################
 
-# Use the official Node.js image as the base image for the builder stage.
+# Use the official Node.js runtime as the parent image.
+# This provides the necessary environment to run a Node.js application.
 FROM node:latest AS builder
 
 # Set the working directory inside the container to /app
@@ -42,7 +43,8 @@ RUN npm run build
 # For k8s deployment of app
 ############################################################################################
 
-# Use the official Nginx image as the base image for serving the application.
+# Use the official Nginx base image
+# Using an official image ensures you get all necessary Nginx setup and entrypoint scripts.
 FROM nginx
 
 # Expose port 80 to the outside world

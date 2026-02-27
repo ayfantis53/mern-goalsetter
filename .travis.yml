@@ -1,5 +1,5 @@
 # ==================================================================================== #
-#                                 -- AWS ELB Deployment --                             #
+#                                 ** AWS ELB Deployment **                             #
 # ==================================================================================== #
 
 # 1. --  Environment Configuration -- #
@@ -22,8 +22,10 @@ after_success:
   - docker build -t ayfantis53/mern-goalsetter-client ./client
   - docker build -t ayfantis53/mern-goalsetter-nginx ./nginx
   - docker build -t ayfantis53/mern-goalsetter-server ./server
+
   # Login to docker CLI.
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
   # Push Built images to DockerHub.
   - docker push ayfantis53/mern-goalsetter-client 
   - docker push ayfantis53/mern-goalsetter-nginx
@@ -44,7 +46,7 @@ deploy:
   edge: true
 
 # # ==================================================================================== #
-# #                                 -- AWS EKS Deployment --                             #
+# #                                 ** AWS EKS Deployment **                             #
 # # ==================================================================================== #
 
 # # 1. --  Environment Configuration  -- #
@@ -57,7 +59,7 @@ deploy:
 
 # # 2. -- Install and setup all dependencies  -- #
 # before_install:
-#   # Install  and setup kubectl.
+#   # Install and setup kubectl.
 #   - curl -LO https://dl.k8s.io/release/v1.22.0/bin/linux/amd64/kubectl
 #   - chmod +x ./kubectl
 #   - sudo mv ./kubectl /usr/local/bin/kubectl

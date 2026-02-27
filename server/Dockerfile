@@ -16,21 +16,25 @@
 # For building Goals app backend on pipeline
 ############################################################################################
 
-# Use the latest official Node.js image as base
+# Use the official Node.js runtime as the parent image.
+# This provides the necessary environment to run a Node.js application.
 FROM node:latest
 
-# Set the working directory inside the container to /app
+# Set the working directory inside the container.
+# All subsequent instructions will be executed relative to this directory.
 WORKDIR /app
 
 # Copy package.json and package-lock.json first to leverage Docker cache.
 # This prevents reinstalling dependencies if only application code changes.
 COPY package*.json ./
 
-# Install project dependencies
+# Install project dependencies.
+# Docker will only re-run this step if the package*.json files have changed, saving build time.
 RUN npm install
 
 # Copy the rest of the application source code to /app
 COPY . .
 
-# Set default command to run after the container starts
+# Specify the command to run when the container starts.
+# This command builds the application, which is the default behavior when the container runs.
 CMD ["npm", "run", "build"]

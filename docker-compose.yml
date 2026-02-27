@@ -1,5 +1,5 @@
 # ==================================================================================== #
-#                             -- Docker-Compose-Release --                             #
+#                             ** Docker-Compose-Release **                             #
 # ==================================================================================== #
 
 # container for all components to deploy, which can be scaled or updated independently
@@ -17,8 +17,8 @@ services:
     environment:                                  # Sets environment variables inside the container.
       - ATLAS_URI=$ATLAS_URI
       - PORT=$PORT
-   # 3. Nginx Reverse Proxy & Static File Server
-   nginx:                                         # Define service named: nginx.
+  # 3. Nginx Reverse Proxy & Static File Server
+  nginx:                                         # Define service named: nginx.
     image: 'ayfantis53/mern-goalsetter-nginx'     # Specify the Docker image to use.
     mem_limit: 128m                               # This restricts the total RAM the container can use on the host system.
     hostname: nginx                               # Explicitly sets the hostname *inside* the container to nginx.

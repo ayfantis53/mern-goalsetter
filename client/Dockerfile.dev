@@ -16,8 +16,8 @@
 # For testing Goals frontend locally
 ############################################################################################
 
-
-# Use an official Node.js with specific tag (latest) runtime as the base image.
+# Use the official Node.js runtime as the parent image.
+# This provides the necessary environment to run a Node.js application.
 FROM node:latest
 
 # Set the working directory inside the container.

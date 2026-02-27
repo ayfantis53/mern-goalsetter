@@ -1,5 +1,5 @@
 # ==================================================================================== #
-#                             -- Docker-Compose-Development --                         #
+#                             ** Docker-Compose-Development **                         #
 # ==================================================================================== #
 
 # container for all components to deploy, which can be scaled or updated independently
@@ -8,7 +8,7 @@ services:
   api:                                         # Define service named: api.
     image: ayfantis53/mern-goalsetter-server   # Specify the Docker image to use.
     build:                                     # tell Compose how to create the image for this service.
-      dockerfile: Dockerfile.dev               # path to Dockerfile relative to the 'context' directory.
+      dockerfile: Dockerfile                   # path to Dockerfile relative to the 'context' directory.
       context: ./server                        # a path to a directory containing a Dockerfile.
     volumes:                                   # instruction defines mount points for the container when it is running.
       - /app/node_modules
@@ -34,7 +34,7 @@ services:
     restart: always                            # property defines the restart policy for a service's containers.                           
     image: ayfantis53/mern-goalsetter-nginx    # Specify the Docker image to use.
     build:                                     # tell Compose how to create the image for this service.
-      dockerfile: Dockerfile.dev               # path to Dockerfile relative to the 'context' directory.
+      dockerfile: Dockerfile                   # path to Dockerfile relative to the 'context' directory.
       context: ./nginx                         # a path to a directory containing a Dockerfile.
     ports:                                     # maps port on host machine to port in container allowing access to the application from outside the container's network.
       - '3050:80'                 # maps port 3050 inside the container to port 80 on the host machine.
