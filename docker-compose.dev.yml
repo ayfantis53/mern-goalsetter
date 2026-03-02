@@ -4,7 +4,7 @@
 
 # container for all components to deploy, which can be scaled or updated independently
 services:
-  # 1. React Node/Backend Service
+  # 1. --  React Node/Backend Service --  #
   api:                                         # Define service named: api.
     image: ayfantis53/mern-goalsetter-server   # Specify the Docker image to use.
     build:                                     # tell Compose how to create the image for this service.
@@ -15,7 +15,7 @@ services:
       - ./server:/app
     ports:                                     # maps port on host machine to port in container allowing access to the application from outside the container's network.
       - '5000:5000'                 # maps port 5000 inside the container to port 5000 on the host machine.
-  # 2. React Client Service
+  # 2. --  React Client Service --  #
   client:                                      # Define service named: client.
     image: ayfantis53/mern-goalsetter-client   # Specify the Docker image to use.
     build:                                     # tell Compose how to create the image for this service.
@@ -26,7 +26,7 @@ services:
       - ./client:/app
     environment:                               # Sets environment variables inside the container.
       - WDS_SOCKET_PORT=0
-  # 3. Nginx Reverse Proxy & Static File Server
+  # 3. --  Nginx Reverse Proxy & Static File Server --  #
   nginx:                                       # Define service named: nginx.
     depends_on:                                # express dependencies between services and control the startup and shutdown order of the containers.
       - api
