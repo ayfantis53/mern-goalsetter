@@ -4,12 +4,12 @@
 
 # container for all components to deploy, which can be scaled or updated independently
 services:
-   # 1. React Client Service
+   # 1. --  React Client Service --  #
   client:                                         # Define service named: client.
     image: 'ayfantis53/mern-goalsetter-client'    # Specify the Docker image to use.
     mem_limit: 256m                               # This restricts the total RAM the container can use on the host system.
     hostname: client                              # Explicitly sets the hostname *inside* the container to client.
-  # 2. Node/Backend Service
+  # 2. --  Node/Backend Service --  #
   server:                                         # Define service named: server.
     image: 'ayfantis53/mern-goalsetter-server'    # Specify the Docker image to use.
     mem_limit: 128m                               # This restricts the total RAM the container can use on the host system.
@@ -17,7 +17,7 @@ services:
     environment:                                  # Sets environment variables inside the container.
       - ATLAS_URI=$ATLAS_URI
       - PORT=$PORT
-  # 3. Nginx Reverse Proxy & Static File Server
+  # 3. --  Nginx Reverse Proxy & Static File Server --  #
   nginx:                                         # Define service named: nginx.
     image: 'ayfantis53/mern-goalsetter-nginx'     # Specify the Docker image to use.
     mem_limit: 128m                               # This restricts the total RAM the container can use on the host system.
